@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Connexion";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@model HEALTH.ViewModels.LoginViewModel;
+<!-- Page -->
+<div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
+    >
+    <div class="page-content vertical-align-middle">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="brand">
+                    <img class="navbar-brand-logo" src="~/assets/images/healthlogo.png" title="HEALTH">
+                    <h2 class="brand-text font-size-18">HEALTH</h2>
+                </div>
+                @using (Html.BeginForm("Index", "Connexion", FormMethod.Post, new { returnUrl = ViewBag.returnUrl }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(model => model.ReturnUrl, new { value = ViewBag.returnUrl })
+                    <div class="form-group form-material floating" data-plugin="formMaterial">
+                        @*<input type="text" class="form-control empty" id="inputName" name="name">*@
+                        @Html.TextBoxFor(Model => Model.LoginUser, new { @Class = "form-control", @AutoComplete = "off" })
+                        <label class="floating-label" for="LoginUser">Nom d'utilisateur</label>
+                        @Html.ValidationMessageFor(Model => Model.LoginUser, "", new { style = "color:red" })
+                    </div>
+                    <div class="form-group form-material floating" data-plugin="formMaterial">
+                        @*<input type="password" class="form-control" name="password" />*@
+                        @Html.TextBoxFor(Model => Model.LoginPassword, new { @Class = "form-control", @Type = "password" })
+                        <label class="floating-label">Mot de passe</label>
+                        @Html.ValidationMessageFor(Model => Model.LoginPassword, "", new { style = "color:red" })
+                        @if(ViewBag.messageError==true)
+                        @Html.Label("Message", "Nom d'utilisateur ou Mot de passe incorrect", new { style = "color:red" @*ViewBag.messageError*@ })
+                        
+                    </div>
+                    <button class="btn btn-primary btn-block btn-lg mt-40" id="connect">Se connecter</button>
+                }
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- End Page -->
